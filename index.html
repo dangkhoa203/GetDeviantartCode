@@ -48,25 +48,31 @@
         <button id="copyButton" class="btn btn-success w-100">Copy</button>
       </div>
     </div>
-    <script>
-
-      // 1. Get the full query string (e.g., "?name=Jonathan&age=30")
+  </div>
+  <div id="error" class="h-100 container d-flex flex-column m-auto mt-auto justify-content-center">
+    <p class="text-center text-danger fw-bold h1">
+      Code not found!
+    </p>
+  </div>
+  <script>
       const queryString = window.location.search;
-      const element = document.getElementById("information");
-      // 2. Create a URLSearchParams object from the query string
+      const information = document.getElementById("information");
+      const error = document.getElementById("error");
+
       const urlParams = new URLSearchParams(queryString);
 
-      // 3. Get individual parameters using the .get() method
+
       const code = urlParams.get("code");
 
-      // 4. Use the values in your HTML (e.g., to display them)
-      document.getElementById("code-display").textContent = code;
 
-      // You can also check if a parameter exists using .has()
+
+
+
       if (code) {
-        element.classList.add("d-flex");
+        document.getElementById("code-display").textContent = code;
+        error.classList.add("d-none");
       } else {
-        element.classList.add("d-none");
+        information.classList.add("d-none");
       }
       function fallbackCopyTextToClipboard(text) {
         const tempInput = document.createElement('textarea');

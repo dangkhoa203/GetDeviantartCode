@@ -1,11 +1,106 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get Code</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Get Code</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+  <style>
+    *::selection {
+      background-color: #00c787;
+    }
+
+    p {
+      margin: 0;
+      font-size: 1.3em;
+    }
+
+    body {
+      display: flex;
+      height: 100vh;
+      background-color: #d4dfd0;
+      word-break: break-all;
+    }
+
+    #information {
+      width: 700px;
+    }
+  </style>
 </head>
+
 <body>
-    <p>Test</p>
+  <div id="information" class="h-100 container d-flex flex-column m-auto mt-auto justify-content-center">
+    <div class="row w-100">
+      <div class="col-12 col-lg-4 d-flex justify-content-center">
+        <p>Authorize Code:</p>
+      </div>
+      <div class="col-12 col-lg-8">
+        <p id="code-display"></span>
+      </div>
+    </div>
+    <div class="row w-100" style="margin-top: 10px;">
+      <div class="col-12 col-lg-4">
+
+      </div>
+      <div class="col-12 col-lg-8 align-self-end">
+        <button id="copyButton" class="btn btn-success w-100">Copy</button>
+      </div>
+    </div>
+    <script>
+
+      // 1. Get the full query string (e.g., "?name=Jonathan&age=30")
+      const queryString = window.location.search;
+      const element = document.getElementById("information");
+      // 2. Create a URLSearchParams object from the query string
+      const urlParams = new URLSearchParams(queryString);
+
+      // 3. Get individual parameters using the .get() method
+      const code = urlParams.get("code");
+
+      // 4. Use the values in your HTML (e.g., to display them)
+      document.getElementById("code-display").textContent = code;
+
+      // You can also check if a parameter exists using .has()
+      if (code) {
+        element.classList.add("d-flex");
+      } else {
+        element.classList.add("d-none");
+      }
+      function fallbackCopyTextToClipboard(text) {
+        const tempInput = document.createElement('textarea');
+        tempInput.value = text;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+        changeButtonCopied()
+
+      }
+      function changeButtonCopied() {
+        const button = document.getElementById("copyButton")
+        button.textContent = "Copied"
+        button.disabled = true
+      }
+      copyButton.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(code);
+          console.log('Content copied to clipboard successfully!');
+          // Optional: Provide user feedback
+          changeButtonCopied()
+
+        } catch (err) {
+          console.error('Failed to copy text: ', err);
+          // Fallback for older browsers or if permission is denied
+          fallbackCopyTextToClipboard(code);
+        }
+      });
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+      integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
+      crossorigin="anonymous"></script>
 </body>
+
 </html>

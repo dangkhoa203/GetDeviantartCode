@@ -14,7 +14,7 @@
 
     p {
       margin: 0;
-      font-size: 1.3em;
+      font-size: 1.7em;
     }
 
     body {
@@ -25,7 +25,7 @@
     }
 
     #information {
-      width: 700px;
+      width: 100%;
     }
   </style>
 </head>
@@ -60,12 +60,7 @@
       const error = document.getElementById("error");
 
       const urlParams = new URLSearchParams(queryString);
-
-
       const code = urlParams.get("code");
-
-
-
 
 
       if (code) {
@@ -93,12 +88,10 @@
         try {
           await navigator.clipboard.writeText(code);
           console.log('Content copied to clipboard successfully!');
-          // Optional: Provide user feedback
           changeButtonCopied()
 
         } catch (err) {
           console.error('Failed to copy text: ', err);
-          // Fallback for older browsers or if permission is denied
           fallbackCopyTextToClipboard(code);
         }
       });
